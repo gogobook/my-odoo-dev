@@ -1,0 +1,39 @@
+version: '3.5'
+services:
+  web:
+    build: ./web
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./.run:/var/run/
+      - ./web:/usr/src/app
+      - ./web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+      # - ./bin:/var/lib/app/bin
+
+      # - ./sessions:/var/lib/odoo/sessions #
+    command: sh -c "/usr/src/app/odoo-bin -c /etc/odoo/odoo.conf"
+    #   odoo -r odoo -w odoo -i addons -d odoo
+
+    # ENTRYPOINT ["/entrypoint.sh"]
+    # CMD ["odoo"]
+    env_file: ./.env
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=myodoo
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=myodoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/pgdata
+      - ./.run/postgresql:/var/run/postgresql
