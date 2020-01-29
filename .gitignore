@@ -67,3 +67,5 @@ pgdata/*
 .run
 odoo-web-data/
 web-data/
+sessions/
+web/

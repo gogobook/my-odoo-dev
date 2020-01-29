@@ -14,7 +14,7 @@ services:
       - ./addons:/mnt/extra-addons
       # - ./bin:/var/lib/app/bin
 
-      # - ./sessions:/var/lib/odoo/sessions #
+      - ./sessions:/var/lib/odoo/sessions #
     command: sh -c "/usr/src/app/odoo-bin -c /etc/odoo/odoo.conf"
     #   odoo -r odoo -w odoo -i addons -d odoo
 
