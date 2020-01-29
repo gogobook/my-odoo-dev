@@ -7,4 +7,5 @@ rm ./web/Dockerfile
 
 cp Dockerfile ./web
 cp requirements.txt ./web
+mkdir sessions
 chmod 777 ./sessions
