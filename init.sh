@@ -12,3 +12,5 @@ chmod 777 ./web-data
 
 mkdir addons
 chmod 777 ./addons
+
+touch .env
