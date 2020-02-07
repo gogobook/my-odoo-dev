@@ -7,8 +7,8 @@ rm ./web/requirements.txt
 
 cp Dockerfile ./web
 cp requirements.txt ./web
-mkdir web_data
-chmod 777 ./web_data
+mkdir web-data
+chmod 777 ./web-data
 
 mkdir addons
 chmod 777 ./addons

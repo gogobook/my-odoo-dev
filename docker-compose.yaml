@@ -20,7 +20,7 @@ services:
     volumes:
       - ./.run:/var/run/
       - ./web:/usr/src/app
-      - ./web_data:/var/lib/odoo
+      - ./web-data:/var/lib/odoo
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
       # - ./bin:/var/lib/app/bin
