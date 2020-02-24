@@ -3,7 +3,7 @@ git clone -b 13.0 --depth=1 https://github.com/odoo/odoo.git web
 
 git submodule add ./web
 rm ./web/requirements.txt
-rm ./web/Dockerfile
+# rm ./web/Dockerfile # remove from source code, but I don't know why? 
 cp Dockerfile ./web
 cp requirements.txt ./web
 
