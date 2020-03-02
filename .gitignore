@@ -68,5 +68,3 @@ pgdata/*
 odoo-web-data/
 web-data/
 sessions/
-web/
-addons/
