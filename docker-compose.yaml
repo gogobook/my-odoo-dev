@@ -1,15 +1,26 @@
 version: '3.5'
 services:
-  starlette:
-    build: ./starlette
-    depends_on:
-      - web
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./starlette:/usr/src/app
-    command: sh -c "gunicorn -w 2 --bind=0.0.0.0 -k uvicorn.workers.UvicornWorker --log-level info app:app"
+  # starlette:
+  #   build: ./starlette
+  #   depends_on:
+  #     - web
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./starlette:/usr/src/app
+  #   command: sh -c "gunicorn -w 2 --bind=0.0.0.0 -k uvicorn.workers.UvicornWorker --log-level info app:app"
     # command: python app.py
+
+  # djangosite:
+  #   build: ./djangosite
+  #   depends_on:
+  #     - web
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./djangosite:/usr/src/app
+  #   # command: sh -c "gunicorn -w 2 --bind=0.0.0.0 -k uvicorn.workers.UvicornWorker --log-level info app:app"
+  #   command: sh -c "python manage.py runserver 8080"
 
   web:
     build: ./web
