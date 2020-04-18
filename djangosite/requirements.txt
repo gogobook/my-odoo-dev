@@ -10,5 +10,5 @@ odoorpc
 asgiref~=3.2
 sqlparse>=0.2.2
 pytz
-django==3.0.4
+django==3.0.5
 djangorestframework
