@@ -66,6 +66,11 @@ RUN set -eux; \
 # Copy entrypoint script and Odoo configuration file
 
 COPY requirements.txt /usr/src/app/
-RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
+RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt 
+
+# RUN groupadd -r django && useradd -r -g django django
+# RUN chown -R django usr/src/app
+
+# USER django
 
 WORKDIR /usr/src/app
