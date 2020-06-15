@@ -1,3 +1,8 @@
+# 本分支用以建立m-odoo，及其所需的odoo 開發環境。
+odoo/addons 只留下base_import, base_import_module, base_setup, base_sparse_field, bus, http_routing,
+mail, resource, web, web_tour 其餘可刪除。
+做法改為先將這幾個檔案cp 到某個地方，然後將整個addons 砍掉，最後將某個地方改名為addons
+
 # web 資料夾內缺一Dockerfile, 原本的requirements.txt 也得修改。
 在原本的另一個repository 中有，但是刪了。還好github 可以救回來，謝天謝地，弄那兩個檔案也是很花時間的。  
 **那兩個檔案非常重要！**  

@@ -1,11 +1,25 @@
 # clone odoo
-git clone -b 13.0 --depth=1 https://github.com/odoo/odoo.git web
+git clone -b master --depth=1 https://github.com/odoo/odoo.git web
 
 git submodule add ./web
 rm ./web/requirements.txt
-# rm ./web/Dockerfile # remove from source code, but I don't know why? 
+rm ./web/odoo/addons/base/__manifest__.py
+rm ./web/odoo/addons/base/data/ir_module_module.xml
+mkdir ./web/addons2
+cp ./web/addons/base_import ./web/addons2/
+cp ./web/addons/base_import_module ./web/addons2/
+cp ./web/addons/base_setup ./web/addons2/
+cp ./web/addons/base_sparse_field ./web/addons2/
+cp ./web/addons/bus ./web/addons2/
+cp ./web/addons/http_routing ./web/addons2/
+cp ./web/addons/mail ./web/addons2/
+cp ./web/addons/resource ./web/addons2/
+cp ./web/addons/web ./web/addons2/
+cp ./web/addons/web_tour ./web/addons2/
+cp manifest_for_m_odoo.py ./web/odoo/addons/base/__manifest__.py
 cp Dockerfile ./web
 cp requirements.txt ./web
+
 
 mkdir web-data
 chmod 777 ./web-data
