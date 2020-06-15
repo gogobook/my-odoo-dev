@@ -11,16 +11,19 @@ services:
   #   command: sh -c "gunicorn -w 2 --bind=0.0.0.0 -k uvicorn.workers.UvicornWorker --log-level info app:app"
     # command: python app.py
 
-  # djangosite:
-  #   build: ./djangosite
-  #   depends_on:
-  #     - web
-  #   ports:
-  #     - "8080:8080"
-  #   volumes:
-  #     - ./djangosite:/usr/src/app
-  #   # command: sh -c "gunicorn -w 2 --bind=0.0.0.0 -k uvicorn.workers.UvicornWorker --log-level info app:app"
-  #   command: sh -c "python manage.py runserver 8080"
+  djangosite:
+    build: ./djangosite
+    depends_on:
+      - web
+    # ports:
+    #   - "8080:8080"
+    volumes:
+      - ./djangosite:/usr/src/app
+      - ./.run/gunicorn:/var/run/gunicorn
+      - ./.run/redis:/var/run/redis
+      - ./.run/postgresql:/var/run/postgresql
+    command: sh -c "gunicorn -w 2 --bind=unix:/var/run/gunicorn/gunicorn.sock -k uvicorn.workers.UvicornWorker --log-level info djangosite.asgi:application"
+    # command: sh -c "python manage.py runserver 0.0.0.0:8080"
 
   web:
     build: ./web
@@ -50,6 +53,7 @@ services:
       - HOST=db
       - USER=odoo
       - PASSWORD=myodoo
+
   db:
     image: postgres:latest
     # ports:
@@ -62,3 +66,22 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data/pgdata
       - ./.run/postgresql:/var/run/postgresql
+
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./djangosite/templates/static:/var/www/app/static        # 這裡把web (也就是django)的static files放在nginx中。
+      - ./djangosite/templates/media:/var/www/app/media          # 同樣的，把media也放在nginx中。
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./.run/gunicorn:/var/run/gunicorn
+      - ./nginx/html:/usr/share/nginx/html:ro # html 內放置let's encrypt 的驗證碼及google search console 的驗證碼。
+      - ./nginx_data/certbot/conf:/etc/letsencrypt
+      - ./nginx_data/certbot/www:/var/www/certbot
+
+    # logging:
+    #   driver: none
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"

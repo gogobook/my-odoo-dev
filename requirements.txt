@@ -40,5 +40,6 @@ xlrd==1.1.0
 psycopg2-binary
 phonenumbers
 watchdog
+httpx --pre
 
 

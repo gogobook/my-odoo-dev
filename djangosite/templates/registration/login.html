@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/app.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <header class="bg-gray-500 flex justify-center items-center" style="height: 500px;">
+      {% block content %}
+      <div class="w-full max-w-xs">
+        <h1 class="w-full text-4xl mb-4">亞法國際有限公司</h1>
+        <h1 class="w-full text-2xl m-2">專案文件上傳伺服器</h1>
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              Username
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="username"
+              type="text"
+              placeholder="Username"
+              name="username"
+            />
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+              Password
+            </label>
+            <input
+              class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="password"
+              placeholder="******************"
+              name="password"
+            />
+            <p class="text-red-500 text-xs italic">Please choose a password.</p>
+          </div>
+          <div class="flex items-center justify-between">
+            <input
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+              value="login"
+            />
+            <a
+              class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+              href="#"
+            >
+              Forgot Password?
+            </a>
+          </div>
+        </form>
+        {% if form.errors %}
+        <p class="w-full text-red-300">Your username and password didn't match. Please try again.</p>
+        {% endif %} {% if next %} {% if user.is_authenticated %}
+        <p class="w-full text-red-300">
+          Your account doesn't have access to this page. To proceed, please login with an account that has
+          access.
+        </p>
+        {% else %}
+        <!-- <p>Please login to see this page.</p> -->
+        {% endif %} {% endif %}
+        <p class="text-center text-gray-500 text-xs">
+          &copy;2020 Acme Corp. All rights reserved.
+        </p>
+      </div>
+      <!-- <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <table>
+          <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+          </tr>
+          <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+          </tr>
+        </table>
+        <input type="submit" value="login" />
+      </form> -->
+    </header>
+  </body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./static/app.css" />
+    <title>Project List</title>
+  </head>
+  <body>
+    <header class="bg-gray-500 flex justify-center items-center" style="height: 500px;">
+      <!-- {% block content %} -->
+      <div class="w-full max-w-xs md: max-w-3xl">
+        <h1 class="w-full text-4xl mb-4">亞法國際有限公司</h1>
+        <h1 class="w-full text-2xl m-2">專案文件列表</h1>
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="post" enctype="multipart/form-data" action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              Files
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="username"
+              type="file"
+              name="files"
+              multiple="multiple"
+            />
+          </div>
+          <div class="flex items-center justify-between">
+            <input
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+              value="send"
+            />
+          </div>
+        </form>
+        <p class="text-center text-gray-500 text-xs">
+          &copy;2020 Acme Corp. All rights reserved.
+        </p>
+      </div>
+    </header>
+  </body>
+</html>
+
+<!-- {% endblock %} -->

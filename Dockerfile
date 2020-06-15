@@ -1,4 +1,4 @@
-FROM python:3.8.1-slim-buster
+FROM python:3.8.3-slim-buster
 
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
@@ -17,7 +17,6 @@ RUN set -x; \
             fonts-noto-cjk \
             gnupg \
             nodejs \
-            node-less \
             npm \
             libxml2 \
             libxml2-dev \
@@ -26,16 +25,14 @@ RUN set -x; \
             python3-renderpm \
             xz-utils \
             wkhtmltopdf \
-            postgresql-client 
-
-# Install rtlcss (on Debian buster)
-RUN set -x; \
-    npm install -g rtlcss
+            postgresql-client ;\
+        apt-get remove -y --auto-remove ;\
+        rm -rf /var/lib/apt/lists/*;
 
 # Copy entrypoint script and Odoo configuration file
 
 COPY requirements.txt /usr/src/app/
-RUN pip3 install --no-cache-dir -r /usr/src/app/requirements.txt
+RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
 
 RUN adduser odoo
 USER odoo

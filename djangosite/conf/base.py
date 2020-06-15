@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+sys.path.append(os.path.join(BASE_DIR, 'apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -25,12 +25,16 @@ SECRET_KEY = 'rfszv9hp24odz395a%l=0=f!xyp)v82k=k6ht*(nft3uvw7=_#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.specification.apps.SpecificationConfig',
+    'apps.inspection.apps.InspectionConfig',
+    'apps.document.apps.DocumentConfig',
+    'apps.project.apps.ProjectConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +58,7 @@ ROOT_URLCONF = 'djangosite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['./templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,8 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-# AUTHENTICATION_BACKENDS = (
-#     'api.backend.EmailOrUsernameModelBackend',
-#     'django.contrib.auth.backends.ModelBackend',
-# )
 AUTHENTICATION_BACKENDS = ['djangosite.backend.MyBackend']
+LOGIN_URL = '/app/accounts/login'
+LOGIN_REDIRECT_URL = '/app/project/list'
+AUTH_USER_MODEL = 'project.MyUser'
