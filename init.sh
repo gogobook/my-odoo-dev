@@ -6,16 +6,18 @@ rm ./web/requirements.txt
 rm ./web/odoo/addons/base/__manifest__.py
 rm ./web/odoo/addons/base/data/ir_module_module.xml
 mkdir ./web/addons2
-cp ./web/addons/base_import ./web/addons2/
-cp ./web/addons/base_import_module ./web/addons2/
-cp ./web/addons/base_setup ./web/addons2/
-cp ./web/addons/base_sparse_field ./web/addons2/
-cp ./web/addons/bus ./web/addons2/
-cp ./web/addons/http_routing ./web/addons2/
-cp ./web/addons/mail ./web/addons2/
-cp ./web/addons/resource ./web/addons2/
-cp ./web/addons/web ./web/addons2/
-cp ./web/addons/web_tour ./web/addons2/
+cp -r ./web/addons/base_import ./web/addons2/
+cp -r ./web/addons/base_import_module ./web/addons2/
+cp -r ./web/addons/base_setup ./web/addons2/
+cp -r ./web/addons/base_sparse_field ./web/addons2/
+cp -r ./web/addons/bus ./web/addons2/
+cp -r ./web/addons/http_routing ./web/addons2/
+cp -r ./web/addons/mail ./web/addons2/
+cp -r ./web/addons/resource ./web/addons2/
+cp -r ./web/addons/web ./web/addons2/
+cp -r ./web/addons/web_tour ./web/addons2/
+rm -r ./web/addons
+mv ./web/addons2/ ./web/addons
 cp manifest_for_m_odoo.py ./web/odoo/addons/base/__manifest__.py
 cp Dockerfile ./web
 cp requirements.txt ./web
