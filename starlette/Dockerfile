@@ -1,4 +1,4 @@
-FROM python:3.8.1-slim-buster
+FROM python:3.8.5-slim-buster
 
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
@@ -11,22 +11,6 @@ RUN apt-get update \
         wget 
 
 
-ENV RUSTUP_HOME=/usr/local/rustup \
-    CARGO_HOME=/usr/local/cargo \
-    PATH=/usr/local/cargo/bin:$PATH \
-    RUST_VERSION=1.41.0
-
-RUN set -eux; \
-    url="https://static.rust-lang.org/rustup/archive/1.21.1/x86_64-unknown-linux-gnu/rustup-init"; \
-    wget "$url"; \
-    echo "ad1f8b5199b3b9e231472ed7aa08d2e5d1d539198a15c5b1e53c746aad81d27b *rustup-init" | sha256sum -c -; \
-    chmod +x rustup-init; \
-    ./rustup-init -y --no-modify-path --profile minimal --default-toolchain $RUST_VERSION; \
-    rm rustup-init; \
-    chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
-    rustup --version; \
-    cargo --version; \
-    rustc --version;
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 # RUN set -x; \
 #         apt-get update \
