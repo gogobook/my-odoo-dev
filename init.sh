@@ -1,6 +1,6 @@
 #!/bin/bash
 # clone odoo
-git clone -b 13.0 --depth=1 https://github.com/odoo/odoo.git web
+git clone -b master --depth=1 https://github.com/odoo/odoo.git web
 
 git submodule add ./web
 rm ./web/requirements.txt

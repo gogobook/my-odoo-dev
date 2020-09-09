@@ -34,6 +34,4 @@ RUN set -x; \
 COPY requirements.txt /usr/src/app/
 RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
 
-RUN adduser odoo
-USER odoo
 WORKDIR /usr/src/app
