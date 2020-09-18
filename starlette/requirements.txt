@@ -1,12 +1,19 @@
 aiofiles
 jinja2
 starlette
-maturin==0.7.7
+maturin
 uvicorn
 orjson
 gunicorn
 odoorpc
 
+Pillow
+asgiref~=3.2
+sqlparse>=0.2.2
 pytz
 django==3.1
 djangorestframework
+django-redis
+channels
+databases
+httpx --pre
