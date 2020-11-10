@@ -11,9 +11,9 @@ Pillow
 asgiref~=3.2
 sqlparse>=0.2.2
 pytz
-django==3.1
+django==3.1.*
 djangorestframework
 django-redis
 channels
 databases
-httpx --pre
+httpx==0.16.*
