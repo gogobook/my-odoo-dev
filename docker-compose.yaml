@@ -1,26 +1,27 @@
 version: '3.5'
 services:
 
-  djangosite:
-    build: ./djangosite
-    depends_on:
-      - web
-    # ports:
-    #   - "8080:8080"
-    volumes:
-      - ./djangosite:/usr/src/app
-      - ./.run/gunicorn:/var/run/gunicorn
-      - ./.run/redis:/var/run/redis
-      - ./.run/postgresql:/var/run/postgresql
-    command: sh -c "gunicorn -w 2 --bind=unix:/var/run/gunicorn/gunicorn.sock -k uvicorn.workers.UvicornWorker --log-level info djangosite.asgi:application"
-    # command: sh -c "python manage.py runserver 0.0.0.0:8080"
+  # djangosite:
+  #   build: ./djangosite
+  #   depends_on:
+  #     - web
+  #   # ports:
+  #   #   - "8080:8080"
+  #   volumes:
+  #     - ./djangosite:/usr/src/app
+  #     - ./.run/gunicorn:/var/run/gunicorn
+  #     - ./.run/redis:/var/run/redis
+  #     - ./.run/postgresql:/var/run/postgresql
+  #   command: sh -c "gunicorn -w 2 --bind=unix:/var/run/gunicorn/gunicorn.sock -k uvicorn.workers.UvicornWorker --log-level info djangosite.asgi:application"
+  #   # command: sh -c "python manage.py runserver 0.0.0.0:8080"
+
 
   web:
     build: ./web
     depends_on:
       - db
-    ports:
-      - "8069:8069"
+    # ports:
+    #   - "8069:8069"
     volumes:
       - ./.run:/var/run/
       - ./web:/usr/src/app
@@ -30,10 +31,12 @@ services:
       # - ./bin:/var/lib/app/bin
 
       # - ./sessions:/var/lib/odoo/sessions #
-    # command: sh -c "/usr/src/app/odoo-bin gevent -c /etc/odoo/odoo.conf"
-    command: sh -c "/usr/src/app/odoo-bin -c /etc/odoo/odoo.conf"
+    command: sh -c "/usr/src/app/odoo-bin gevent -c /etc/odoo/odoo.conf"
+    # sh -c "gunicorn odoo.service.wsgi_server:application -D && /usr/src/app/odoo-bin -c /etc/odoo/odoo.conf"
+    # sh -c "gunicorn odoo.service.wsgi_server:application"
+    # sh -c "/usr/src/app/odoo-bin -c /etc/odoo/odoo.conf"
     # odoo -r odoo -w odoo -i addons -d odoo
-    # gunicorn odoo:service.wsgi_server.application -c openerp-wsgi.py
+    # gunicorn odoo:service.wsgi_server.application -c odoo-wsgi.py wsgi方法目前失敗中
     #   odoo -r odoo -w odoo -i addons -d odoo
 
     # ENTRYPOINT ["/entrypoint.sh"]
@@ -45,7 +48,7 @@ services:
       - PASSWORD=myodoo
 
   db:
-    image: postgres:13.0-alpine
+    image: postgres:13.1-alpine
     # ports:
     #   - "5432:5432"
     environment:
@@ -71,6 +74,8 @@ services:
       - ./nginx/html:/usr/share/nginx/html:ro # html 內放置let's encrypt 的驗證碼及google search console 的驗證碼。
       - ./nginx_data/certbot/conf:/etc/letsencrypt
       - ./nginx_data/certbot/www:/var/www/certbot
+      - ./web/addons:/var/www/odoo/addons1
+      - ./addons:/var/www/odoo/addons2
 
     # logging:
     #   driver: none

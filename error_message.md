@@ -1,3 +1,18 @@
+目前有一個Session expired，這是由另一個odoo 造成的
+
+## 目前website 的login 觸發了以下這個錯誤，待處理。
+目前處理方式為直接註解掉，待後續解決。  
+Your Odoo session expired. The current page is about to be refreshed.
+```log
+  File "/usr/src/app/addons/mail/controllers/home.py", line 40, in _login_redirect
+    _admin_password_warn(uid)
+  File "/usr/src/app/addons/mail/controllers/home.py", line 18, in _admin_password_warn
+    if ipaddress.ip_address(request.httprequest.remote_addr).is_private:
+  File "/usr/local/lib/python3.8/ipaddress.py", line 53, in ip_address
+    raise ValueError('%r does not appear to be an IPv4 or IPv6 address' %
+Exception
+```
+
 ```sh
 (odoo) lee@lee-MS-7995:.../odoo/odoo13$ docker-compose logs web
 Attaching to odoo13_web_1

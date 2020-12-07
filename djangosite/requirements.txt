@@ -2,6 +2,7 @@ aiofiles
 jinja2
 starlette
 maturin
+uvloop
 uvicorn
 orjson
 gunicorn

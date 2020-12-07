@@ -19,14 +19,18 @@
 #   $ gunicorn odoo:service.wsgi_server.application -c odoo-wsgi.py
 ```
 在setup 資料夾中有一個`odoo-wsgi.example.py`，作為odoo-wsgi.py 的例子。
+`odoo-wsgi.py` 可更名為`gunicorn.config.py`
+
 ex:
 ```py
 # odoo-wsgi.py
 import odoo # 這裡其實是odoo
 conf = odoo.tools.config
-conf['addons_path'] = '/home/odoo/addons/trunk,/home/odoo/web/trunk/addons'
+conf['addons_path'] = '/usr/src/app/odoo/addons,/usr/src/app/addons,/mnt/extra-addons'
+
 ```
 The above three lines first import the `odoo` library (i.e. the one containing the odoo server implementation). The second one is really to shorten repeated usage of the same variable. The third one sets a parameter, in this case the equivalent of the `--addons-path` command-line option.
+`load_openerp_module` 方法要加上`initialize_sys_path()` 否則會有找不到`web` 的錯誤。
 
 # Deploying Odoo
 https://www.odoo.com/documentation/14.0/setup/deploy.html
