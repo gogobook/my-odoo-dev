@@ -22,7 +22,7 @@ psutil==5.6.6
 pydot==1.4.1
 pyldap==2.4.45
 pyparsing==2.2.0
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pyserial==3.4
 python-dateutil==2.7.3
 pytz==2019.1
